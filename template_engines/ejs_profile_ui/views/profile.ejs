@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= user.name %> - Profile</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #9DB9DA;
+    }
+    .profile-card {
+      max-width: 400px;
+      margin: 50px auto;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 15px 25px rgba(0,0,0,0.1);
+      text-align: center;
+      padding: 2rem;
+    }
+    .profile-img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 4px solid #007bff;
+      margin-bottom: 1rem;
+    }
+    .tag {
+      background-color: #F0B12A;
+      color: white;
+      border-radius: 30px;
+      padding: 0.5rem 1.3rem;
+      margin: 0.2rem;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <div class="profile-card">
+    <div>
+    <img src="https://www.shutterstock.com/image-photo/close-potrait-young-adult-woman-260nw-2052290018.jpg" alt="image" class="profile-img">
+    </div>
+    <h2><%= user.name %></h2>
+    <p><strong>Age:</strong> <%= user.age %></p>
+    <p><strong>Profession:</strong> <%= user.profession %></p>
+    <h5 class="mt-4">Skills</h5>
+    <div>
+      <% user.skills.forEach(skill => { %>
+        <span class="tag"><%= skill %></span>
+      <% }) %>
+    </div>
+  </div>
+</body>
+</html>
