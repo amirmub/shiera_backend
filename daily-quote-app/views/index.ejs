@@ -22,6 +22,9 @@
       <div class="buttons">
         <button onclick="speakQuote()"><i class="fas fa-volume-up"></i></button>
         <button onclick="copyQuote()"><i class="fas fa-copy"></i></button>
+        <button onclick="shareOnTwitter()"><i class="fab fa-twitter"></i></button>
+        <button onclick="shareOnFacebook()"><i class="fab fa-facebook"></i></button>
+        <button onclick="shareOnTelegram()"><i class="fab fa-telegram"></i></button>
       </div>
 
       <div class="actions">
@@ -44,6 +47,27 @@
       navigator.clipboard.writeText(`${text} ${author}`).then(() => {
         alert("Quote copied to clipboard!");
       });
+    }
+
+    function shareOnTwitter() {
+      const text = document.getElementById("quote-text").innerText;
+      const author = document.getElementById("quote-author").innerText;
+      const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text + ' ' + author)}`;
+      window.open(url, "_blank");
+    }
+
+    function shareOnFacebook() {
+      const text = document.getElementById("quote-text").innerText;
+      const author = document.getElementById("quote-author").innerText;
+      const url = `https://www.facebook.com/sharer/sharer.php?u=https://example.com&quote=${encodeURIComponent(text + ' ' + author)}`;
+      window.open(url, "_blank");
+    }
+
+    function shareOnTelegram() {
+      const text = document.getElementById("quote-text").innerText;
+      const author = document.getElementById("quote-author").innerText;
+      const url = `https://t.me/share/url?url=https://example.com&text=${encodeURIComponent(text + ' ' + author)}`;
+      window.open(url, "_blank");
     }
   </script>
 </body>
