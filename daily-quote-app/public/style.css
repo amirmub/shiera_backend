@@ -1,0 +1,91 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+body {
+    background-color: #75bdc4; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .container {
+    padding: 20px;
+  }
+  
+  .card {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 20px;
+    max-width: 600px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    text-align: center;
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+    font-size: 2rem;
+    color: #007f8c; 
+  }
+  
+  .quote {
+    font-size: 1.3rem;
+    line-height: 1.6;
+    color: #2f4f4f;
+    margin-bottom: 10px;
+  }
+  
+  .author {
+    font-style: italic;
+    color: #5f9ea0;
+    margin-bottom: 20px;
+    text-align: right;
+  }
+  
+  .footer {
+    font-size: 0.85rem;
+    color: #000;
+    margin-bottom: 5px;
+    font-weight: 600;
+  }
+  
+  .buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .buttons button {
+    border: none;
+    background: #c1ecee; 
+    padding: 12px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #007f8c;
+    transition: background 0.3s ease;
+  }
+  
+  .buttons button:hover {
+    background: #aee1e5;
+  }
+  
+  .new-quote {
+    background: #20b2aa; 
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    font-size: 1rem;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .new-quote:hover {
+    background: #168f8b;
+  }
+  

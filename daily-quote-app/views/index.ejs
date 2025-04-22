@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Quote of the Day</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h2>Quotes of the day</h2>
+      <p class="quote">
+        <i class="fas fa-quote-left"></i>
+        <span id="quote-text"><%= quote.text %></span>
+        <i class="fas fa-quote-right"></i>
+      </p>
+      <p class="author" id="quote-author">— <em><%= quote.author %></em></p>
+      <p class="footer">Made with ❤️ by Amir</p>
+      <hr><br>
+
+      <div class="buttons">
+        <button onclick="speakQuote()"><i class="fas fa-volume-up"></i></button>
+        <button onclick="copyQuote()"><i class="fas fa-copy"></i></button>
+      </div>
+
+      <div class="actions">
+        <button onclick="location.reload()" class="new-quote">New Quote</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function speakQuote() {
+      const text = document.getElementById("quote-text").innerText;
+      const author = document.getElementById("quote-author").innerText;
+      const utterance = new SpeechSynthesisUtterance(`${text} by ${author}`);
+      speechSynthesis.speak(utterance);
+    }
+
+    function copyQuote() {
+      const text = document.getElementById("quote-text").innerText;
+      const author = document.getElementById("quote-author").innerText;
+      navigator.clipboard.writeText(`${text} ${author}`).then(() => {
+        alert("Quote copied to clipboard!");
+      });
+    }
+  </script>
+</body>
+</html>
