@@ -18,9 +18,10 @@ body {
   
   .card {
     background-color: #ffffff;
-    padding: 30px;
+    padding: 20px 30px;
     border-radius: 20px;
-    max-width: 600px;
+    width: 600px;
+    height: 370px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
     text-align: center;
   }
@@ -32,22 +33,25 @@ body {
   }
   
   .quote {
-    font-size: 1.3rem;
-    line-height: 1.6;
+    font-size: 1.2rem;
+    line-height: 1.1;
     color: #2f4f4f;
     margin-bottom: 10px;
   }
-  
+  .quote-text{
+    width: 80px;
+  }
   .author {
     font-style: italic;
     color: #5f9ea0;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     text-align: right;
   }
   
   .footer {
     font-size: 0.85rem;
     color: #000;
+    margin-top: 50px;
     margin-bottom: 5px;
     font-weight: 600;
   }
@@ -72,6 +76,9 @@ body {
   
   .buttons button:hover {
     background: #aee1e5;
+  }
+  .buttons .fa-volume-up{
+    font-size: .9rem;
   }
   
   .new-quote {

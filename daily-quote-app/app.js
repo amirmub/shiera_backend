@@ -5,10 +5,11 @@ const path = require('path');
 const quotes = [
     { text: "Believe you can and you're halfway there.", author: "Theodore Roosevelt" },
     { text: "Every day is a second chance.", author: "Oprah Winfrey" },
-    { text: "Success is not final, failure is not fatal: It is the courage to continue that counts.", author: "Winston Churchill" },
+    { text: "You can’t stop the waves, but you can learn to surf", author: "Winston Churchill" },
     { text: "Don’t watch the clock; do what it does. Keep going.", author: "Sam Levenson" },
     { text: "It always seems impossible until it's done.", author: "Nelson Mandela" },
     { text: "Act as if what you do makes a difference. It does.", author: "William James" },
+    { text: "Talk is cheap. Show me the code", author: " Linus Torvalds" },
     
   ];
   
