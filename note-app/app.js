@@ -62,3 +62,4 @@ app.use('/', require('./server/routes/notes'));
     console.log(`App listening on port ( http://localhost:${port} )` );
   });
   
+  module.exports = app;
