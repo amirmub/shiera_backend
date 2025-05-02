@@ -58,7 +58,10 @@ app.use('/', require('./server/routes/notes'));
 //   })
   
   
-  app.listen(port, () => {
+  // app.listen(port, () => {
+  //   console.log(`App listening on port ( http://localhost:${port} )` );
+  // });
+  app.listen(`https://shiera-backend-6.onrender.com/`, () => {
     console.log(`App listening on port ( http://localhost:${port} )` );
   });
   
