@@ -15,6 +15,7 @@ const HomePage = () => {
     <div className="container">
       <h1>Islamic Events Tracker</h1>
       <ToggleCalendar view={calendarView} setView={setCalendarView} />
+      <h2 style={{textAlign : "left",color: "#4338ca"}}>Upcoming Events</h2>
       <div className="grid">
         {events.map((event) => (
           <EventCard key={event.id} event={event} calendarView={calendarView} />
