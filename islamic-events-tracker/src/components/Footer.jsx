@@ -1,4 +1,4 @@
-import project_report from "../data/Project_Reports.pdf";
+import project_report from "../data/Project-Report.pdf";
 
 const Footer = () => {
   return (
