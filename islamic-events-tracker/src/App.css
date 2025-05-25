@@ -131,7 +131,7 @@ h1 {
   color: #facc15; /* Tailwind yellow-400 */
   text-decoration: none;
   font-weight: 600;
-  font-size: 15px;
+  font-size: 14px;
   transition: all 0.3s ease;
 }
 
@@ -145,7 +145,7 @@ h1 {
 .brand-name {
   font-family: 'Pacifico', cursive;
   font-weight: 500;
-  font-size: 18px;
+  font-size: 16px;
   color: #facc15;
 }
 
