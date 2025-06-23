@@ -81,11 +81,11 @@ export default function BlogCard({
         style={{ borderRadius: " 6px" }}
       />
       <CardContent>
-        <Typography variant="h6" color="text.secondary">
+        <Typography variant="h6" color="black" fontWeight="600">
           Title : {title}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Description : {description}
+          <span style={{ fontWeight: "600" }}>Description</span> : {description}
         </Typography>
       </CardContent>
     </Card>
