@@ -66,14 +66,20 @@ export default function BlogCard({
       )}
       <CardHeader
         avatar={
-          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+          <Avatar sx={{ bgcolor: "#64B5F6", color: "#000" , fontSize : "16px",textAlign : "right"}} aria-label="recipe">
             {username}
           </Avatar>
         }
         title={username}
         subheader={time}
       />
-      <CardMedia component="img" height="200" image={image} alt="image" style={{borderRadius : " 6px"}}/>
+      <CardMedia
+        component="img"
+        height="200"
+        image={image}
+        alt="image"
+        style={{ borderRadius: " 6px" }}
+      />
       <CardContent>
         <Typography variant="h6" color="text.secondary">
           Title : {title}
