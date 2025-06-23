@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Box, Typography, TextField, Button } from "@mui/material";
 import axios from "../utils/axios";
 import { useDispatch } from "react-redux";
-import { authActions } from "../redux/Store";
+import { authActions } from "../redux/store";
 import toast from "react-hot-toast";
 
 
