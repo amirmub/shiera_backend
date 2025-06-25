@@ -32,7 +32,7 @@ const Register = () => {
       });
       if (data.success) {
         toast.success("User Register Successfully");
-        navigate("/login");
+        navigate("/");
       }
     } catch (error) {
       console.log(error);
