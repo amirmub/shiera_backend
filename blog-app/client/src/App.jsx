@@ -1,32 +1,31 @@
-import "./App.css";
-import Header from "./components/Header/Header";
-import { Route, Routes } from "react-router-dom";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
+import { Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
 import Blogs from "./pages/Blogs";
-import UserBlogs from "./pages/UserBlogs";
-import CreateBlog from "./pages/CreateBloge";
-import BlogDetails from "./pages/BlogDetail";
-import { Toaster } from "react-hot-toast";
-import Footer from "./components/Footer/Footer";
+import About from "./pages/About";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import SingleBlog from "./pages/SingleBlog";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
-function App() {
+import { ToastContainer } from "react-toastify";
+import Dashboard from "./pages/Dashboard";
+const App = () => {
   return (
-    <>
-      <Header />
-      <Toaster />
+    <div className="max-w-7xl mx-auto">
+      <Navbar />
       <Routes>
-        <Route path="/" element={<Blogs />} />
+        <Route path="/" element={<Home />} />
         <Route path="/blogs" element={<Blogs />} />
-        <Route path="/my-blogs" element={<UserBlogs />} />
-        <Route path="/blog-details/:id" element={<BlogDetails />} />
-        <Route path="/create-blog" element={<CreateBlog />} />
+        <Route path="/about" element={<About />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/register" element={<Signup />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/blog/:id" element={<SingleBlog />} />
       </Routes>
       <Footer />
-    </>
+      <ToastContainer />
+    </div>
   );
-}
-
+};
 export default App;

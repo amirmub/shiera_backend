@@ -1,41 +1,24 @@
-const express = require("express");
-const cors = require("cors");
-const morgan = require("morgan");
-const colors = require("colors");
-const dotenv = require("dotenv");
-const connectDB = require("./config/db");
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import { connectDB } from "./config/connectionDB.js";
+import userRoutes from "./routes/user.routes.js";
+import blogRoutes from "./routes/blog.routes.js";
 
-//env config
 dotenv.config();
 
-//router import
-const userRoutes = require("./routes/user");
-const blogRoutes = require("./routes/blog");
-
-//mongodb connection
-connectDB();
-
 const app = express();
-//middelwares
-app.use(cors());
+// middlewares
 app.use(express.json());
-app.use(morgan("dev"));
+app.use(cors());
 
-//routes
-app.use("/api/v1/user", userRoutes);
-app.use("/api/v1/blog", blogRoutes);
+// API ENDPOINTS
+app.use("/images", express.static("uploads"));
+app.use("/user", userRoutes);
+app.use("/blog", blogRoutes);
 
-//routes
-app.get("/", (req, res) => {
-    res.status(200).send({
-        message: "Welcome to the API",
-    })
-});
-
-const PORT = process.env.PORT || 5000;
-//listen
+const PORT = 4000;
 app.listen(PORT, () => {
-  console.log(
-    `Server Running on ${process.env.DEV_MODE} http://localhost:${PORT}`
-  );
+  connectDB();
+  console.log(`Server is running on port ${PORT}`);
 });
