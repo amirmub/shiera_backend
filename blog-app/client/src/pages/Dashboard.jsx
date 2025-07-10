@@ -208,13 +208,13 @@ const Dashboard = () => {
                       <th className="px-6 py-3 text-left text font-medium  uppercase tracking-wider">
                         Title
                       </th>
-                      <th className="px-6 py-3 text-left text font-medium font-bold uppercase tracking-wider w-1/3">
+                      <th className="px-6 py-3 text-left text font-bold uppercase tracking-wider w-1/3">
                         Description
                       </th>
-                      <th className="px-6 py-3 text-left text font-medium font-bold uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text font-bold uppercase tracking-wider">
                         Image
                       </th>
-                      <th className="px-6 py-3 text-center text font-medium font-bold uppercase tracking-wider">
+                      <th className="px-6 py-3 text-center text font-bold uppercase tracking-wider">
                         Actions
                       </th>
                     </tr>
@@ -269,7 +269,7 @@ const Dashboard = () => {
                             />
                           ) : (
                             <img
-                              src={`http://localhost:4000/images/${blog.image}`}
+                              src={`https://shiera-backend-14.onrender.com/images/${blog.image}`}
                               alt={blog.title}
                               className="h-12 w-12 rounded object-cover"
                             />

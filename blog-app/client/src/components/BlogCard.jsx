@@ -12,7 +12,7 @@ const BlogCard = ({
     <div className="border-1 border-gray-300 shadow-md p-3 px-5 mb-8 mx-1 rounded-md">
       <Link to={`/blog/${id}`}>
         <img
-          src={`http://localhost:4000/images/${image}`}
+          src={`https://shiera-backend-14.onrender.com/images/${image}`}
           alt=""
           className="flex rounded items-center justify-center w-100 h-58 z-0 mx-auto cursor-pointer transform duration-300 hover:scale-105"
         />
@@ -22,7 +22,7 @@ const BlogCard = ({
       <div className="flex gap-3 items-center my-3">
         <img
           className="w-8 h-8 rounded-full"
-          src={`http://localhost:4000/images/${author_image}`}
+          src={`https://shiera-backend-14.onrender.com/images/${author_image}`}
           alt=""
         />
         <p className="text font-bold text-gray-600">{author_name}</p>

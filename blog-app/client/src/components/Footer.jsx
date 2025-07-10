@@ -39,7 +39,7 @@ const Footer = () => {
         {/* Resources */}
         <div>
           <h2 className="text-xl font-bold mb-4">Resources</h2>
-          <ul claLinksName="space-y-2">
+          <ul className="space-y-2">
             <li><Link to="#" className="hover:text-orange-300 transition">Help Center</Link></li>
             <li><Link to="#" className="hover:text-orange-300 transition">Documentation</Link></li>
             <li><Link to="#" className="hover:text-orange-300 transition">API Reference</Link></li>

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "../utils/axios";
 import { toast } from "react-toastify";
 
 const Signup = () => {
@@ -24,7 +23,7 @@ const Signup = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    // Manual validation with custom errors
+    // Manual validation
     if (!formData.name.trim()) {
       toast.error("Name is required");
       return;
@@ -50,18 +49,26 @@ const Signup = () => {
       data.append("image", formData.image);
 
       setLoading(true);
-      const res = await axios.post(
-        "/user/register",
-        data
-        // axios will set Content-Type to multipart/form-data automatically with boundary
+
+      const res = await fetch(
+        "https://shiera-backend-14.onrender.com/user/register",
+        {
+          method: "POST",
+          body: data,
+        }
       );
 
-      if (res.data.success) {
-        toast.success(res.data.message);
+      const resData = await res.json();
+      console.log(resData);
+
+      if (resData.success) {
+        toast.success(resData.message);
         navigate("/login");
+      } else {
+        toast.error(resData.message || "Registration failed");
       }
     } catch (error) {
-      toast.error(error.response?.data?.message || error.message);
+      toast.error(error.message || "Something went wrong");
     } finally {
       setLoading(false);
     }
@@ -110,7 +117,9 @@ const Signup = () => {
           <button
             disabled={loading}
             className={`${
-              loading ? "bg-orange-400 cursor-not-allowed " : "bg-orange-600  cursor-pointer"
+              loading
+                ? "bg-orange-400 cursor-not-allowed "
+                : "bg-orange-600 cursor-pointer"
             } text-white px-6 py-2 w-full`}
           >
             {loading ? "Signing up..." : "Signup"}
