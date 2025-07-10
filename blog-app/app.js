@@ -9,33 +9,30 @@ dotenv.config();
 
 const app = express();
 
+// Allow Netlify frontend CORS
+app.use(cors({
+  origin: "https://bllog-app.netlify.app", // your frontend domain
+  credentials: true,
+}));
+
+// Accept preflight requests
+app.options("*", cors());
+
 // Middlewares
 app.use(express.json());
-app.use(cors());
 
-// API Routes
+// Static and API routes
 app.use("/images", express.static("uploads"));
 app.use("/user", userRoutes);
 app.use("/blog", blogRoutes);
 
-app.get("/", (req, res) => {
-    res.status(200).send({
-        message: "Welcome to the API",
-    })
+// 404 handler
+app.use((req, res, next) => {
+  res.status(404).json({ message: "Route not found" });
 });
 
-// ===== GLOBAL ERROR HANDLER (optional) =====
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({
-    success: false,
-    message: "Internal Server Error",
-    error: err.message,
-  });
-});
-
-// Server start
-const PORT = 4000;
+// Server start (Render sets PORT automatically)
+const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
   connectDB();
   console.log(`Server is running on port ${PORT}`);
