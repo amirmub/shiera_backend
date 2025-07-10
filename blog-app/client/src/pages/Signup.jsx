@@ -11,7 +11,7 @@ const Signup = () => {
   });
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-
+ 
   const onChangeHandler = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };

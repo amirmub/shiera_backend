@@ -13,18 +13,18 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// API Routes
+// Serve static images
 app.use("/images", express.static("uploads"));
+
+// Routes
 app.use("/user", userRoutes);
 app.use("/blog", blogRoutes);
 
 app.get("/", (req, res) => {
-    res.status(200).send({
-        message: "Welcome to the API",
-    })
+  res.status(200).send({ message: "Welcome to the API" });
 });
 
-// ===== GLOBAL ERROR HANDLER (optional) =====
+// Global error handler
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({
@@ -34,7 +34,6 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Server start
 const PORT = 4000;
 app.listen(PORT, () => {
   connectDB();
