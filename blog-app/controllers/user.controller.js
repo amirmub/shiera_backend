@@ -1,28 +1,33 @@
 import User from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+
 export const register = async (req, res) => {
   try {
-    let image_filename = `${req.file.filename}`;
     const { name, email, password } = req.body;
+
+    if (!name || !email || !password || !req.file) {
+      return res.status(400).json({ message: "All fields are required", success: false });
+    }
+
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res
-        .status(400)
-        .json({ message: "User already exists", success: false });
+      return res.status(400).json({ message: "User already exists", success: false });
     }
+
     const hashedPassword = await bcrypt.hash(password, 10);
+    const imageUrl = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`;
+
     const user = await User.create({
       name,
       email,
       password: hashedPassword,
-      image: image_filename,
+      image: imageUrl, // full URL stored
     });
-    res
-      .status(201)
-      .json({ message: "User created successfully", success: true, user });
+
+    res.status(201).json({ message: "User registered", success: true, user });
   } catch (error) {
-    res.status(500).json({ message: "Internal server error" });
+    res.status(500).json({ message: "Internal server error", error: error.message });
   }
 };
 

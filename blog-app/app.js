@@ -6,32 +6,29 @@ import userRoutes from "./routes/user.routes.js";
 import blogRoutes from "./routes/blog.routes.js";
 
 dotenv.config();
-
 const app = express();
 
-// Middlewares
-app.use(express.json());
+// Middleware
 app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// Serve static images
+// Static image serving
 app.use("/images", express.static("uploads"));
 
 // Routes
 app.use("/user", userRoutes);
 app.use("/blog", blogRoutes);
 
+// Root route
 app.get("/", (req, res) => {
-  res.status(200).send({ message: "Welcome to the API" });
+  res.status(200).json({ message: "Welcome to the API" });
 });
 
 // Global error handler
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).json({
-    success: false,
-    message: "Internal Server Error",
-    error: err.message,
-  });
+  res.status(500).json({ message: "Internal Server Error", error: err.message });
 });
 
 const PORT = 4000;
