@@ -18,14 +18,6 @@ app.use("/images", express.static("uploads"));
 app.use("/user", userRoutes);
 app.use("/blog", blogRoutes);
 
-// ===== 404 NOT FOUND Handler =====
-app.use((req, res, next) => {
-  res.status(404).json({
-    success: false,
-    message: "Route not found",
-  });
-});
-
 app.get("/", (req, res) => {
     res.status(200).send({
         message: "Welcome to the API",
