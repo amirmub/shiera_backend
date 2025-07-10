@@ -63,7 +63,7 @@ const Dashboard = () => {
   const fetchBlogs = async () => {
     setLoading(true);  // Start loading
     try {
-      const res = await axios.get("http://localhost:4000/blog/all", {
+      const res = await axios.get("/blog/all", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setBlogs(res.data.blogs);
