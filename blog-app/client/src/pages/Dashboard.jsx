@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "../utils/axios";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Edit3, Trash, Save, X } from "lucide-react";
@@ -46,7 +46,7 @@ const Dashboard = () => {
     data.append("image", formData.image);
 
     try {
-      const res = await axios.post("http://localhost:4000/blog/create", data, {
+      const res = await axios.post("/blog/create", data, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
@@ -80,7 +80,7 @@ const Dashboard = () => {
   const removeBlog = async (blogId) => {
     try {
       const res = await axios.delete(
-        `http://localhost:4000/blog/delete/${blogId}`,
+        `/blog/delete/${blogId}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
       toast.success(res.data.message);
@@ -106,7 +106,7 @@ const Dashboard = () => {
 
     try {
       const res = await axios.put(
-        `http://localhost:4000/blog/update/${id}`,
+        `/blog/update/${id}`,
         data,
         {
           headers: {

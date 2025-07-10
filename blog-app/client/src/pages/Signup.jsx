@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "../utils/axios";
 import { toast } from "react-toastify";
 
 const Signup = () => {
@@ -51,7 +51,7 @@ const Signup = () => {
 
       setLoading(true);
       const res = await axios.post(
-        "http://localhost:4000/user/register",
+        "/user/register",
         data
         // axios will set Content-Type to multipart/form-data automatically with boundary
       );
