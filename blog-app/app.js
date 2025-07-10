@@ -26,6 +26,12 @@ app.use((req, res, next) => {
   });
 });
 
+app.get("/", (req, res) => {
+    res.status(200).send({
+        message: "Welcome to the API",
+    })
+});
+
 // ===== GLOBAL ERROR HANDLER (optional) =====
 app.use((err, req, res, next) => {
   console.error(err.stack);
