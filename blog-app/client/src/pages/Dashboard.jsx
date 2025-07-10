@@ -208,13 +208,13 @@ const Dashboard = () => {
                       <th className="px-6 py-3 text-left text font-medium  uppercase tracking-wider">
                         Title
                       </th>
-                      <th className="px-6 py-3 text-left text font-medium uppercase tracking-wider w-1/3">
+                      <th className="px-6 py-3 text-left text font-medium font-bold uppercase tracking-wider w-1/3">
                         Description
                       </th>
-                      <th className="px-6 py-3 text-left text font-medium uppercase tracking-wider">
+                      <th className="px-6 py-3 text-left text font-medium font-bold uppercase tracking-wider">
                         Image
                       </th>
-                      <th className="px-6 py-3 text-center text font-medium uppercase tracking-wider">
+                      <th className="px-6 py-3 text-center text font-medium font-bold uppercase tracking-wider">
                         Actions
                       </th>
                     </tr>

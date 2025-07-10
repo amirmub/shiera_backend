@@ -7,9 +7,10 @@ import Signup from "./pages/Signup";
 import SingleBlog from "./pages/SingleBlog";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-
 import { ToastContainer } from "react-toastify";
 import Dashboard from "./pages/Dashboard";
+import NotFound from "./pages/NotFound";
+
 const App = () => {
   return (
     <div className="max-w-7xl mx-auto">
@@ -22,6 +23,7 @@ const App = () => {
         <Route path="/register" element={<Signup />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/blog/:id" element={<SingleBlog />} />
+        <Route path="*" element={<NotFound />} /> {/* catch-all */}
       </Routes>
       <Footer />
       <ToastContainer />
