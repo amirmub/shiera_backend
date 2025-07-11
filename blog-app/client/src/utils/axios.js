@@ -1,9 +1,12 @@
 import axios from "axios";
-const axiosInstance = axios.create({
-  baseURL: "http://localhost:4000",
-  // baseURL : "https://shiera-backend-14.onrender.com", 
+
+export const BASE_URL = "https://shiera-backend-15.onrender.com";
+
+export const axiosInstance = axios.create({
+  baseURL: BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },
 });
+
 export default axiosInstance;

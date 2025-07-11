@@ -1,4 +1,4 @@
-import { BASE_URL } from "../utils/axios";
+import {BASE_URL} from "../utils/axios";
 import { Link } from "react-router-dom";
 
 const BlogCard = ({
@@ -10,13 +10,23 @@ const BlogCard = ({
   author_image,
   date,
 }) => {
-  const finalImage = image?.startsWith("http")
-    ? image
-    : `${BASE_URL}/images/${image}`;
+  // Construct full blog image URL
+const cleanedImage = image?.trim();
+const finalImage = cleanedImage?.startsWith("http")
+  ? cleanedImage
+  : `${BASE_URL.replace(/\/$/, "")}/images/${cleanedImage}`;
 
+console.log("Final Blog Image URL:", finalImage);
+
+
+
+
+  // Construct full author image URL
   const finalAuthorImage = author_image?.startsWith("http")
     ? author_image
     : `${BASE_URL}/images/${author_image}`;
+    console.log("Final Blog Author Image URL:", finalAuthorImage);
+
 
   return (
     <div className="border border-gray-300 shadow-md p-4 rounded-md mb-8">
@@ -24,10 +34,12 @@ const BlogCard = ({
         <img
           src={finalImage}
           alt={title}
+          loading="lazy"
           onError={(e) => {
+            e.target.onerror = null; // Prevent infinite loop
             e.target.src = "/fallback-blog.jpg";
           }}
-          className="rounded w-full h-60 object-cover transition-transform duration-300 hover:scale-105 cursor-pointer"
+          className="w-full h-60 object-cover rounded transition-transform duration-300 hover:scale-105 cursor-pointer"
         />
       </Link>
 
@@ -38,10 +50,12 @@ const BlogCard = ({
         <img
           src={finalAuthorImage}
           alt={author_name}
+          loading="lazy"
           onError={(e) => {
+            e.target.onerror = null;
             e.target.src = "/fallback-user.jpg";
           }}
-          className="w-10 h-10 rounded-full object-cover"
+          className="w-10 h-10 object-cover rounded-full"
         />
         <div>
           <p className="text-gray-800 font-medium">{author_name}</p>

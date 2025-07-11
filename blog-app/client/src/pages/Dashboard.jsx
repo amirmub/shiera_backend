@@ -1,4 +1,4 @@
-import axios from "../utils/axios";
+import axios, { BASE_URL } from "../utils/axios";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { Edit3, Trash, Save, X } from "lucide-react";
@@ -19,21 +19,21 @@ const Dashboard = () => {
     description: "",
   });
   const [editImage, setEditImage] = useState(null);
-
-  // NEW: loading state for fetching blogs
   const [loading, setLoading] = useState(false);
 
   const onChangeHandler = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-const fileHandler = (e) => {
-  const file = e.target.files[0];
-  setFormData((prev) => ({ ...prev, image: file }));
-};
+
+  const fileHandler = (e) => {
+    const file = e.target.files[0];
+    setFormData((prev) => ({ ...prev, image: file }));
+  };
 
   const handleEditInputChange = (e) => {
     setEditData({ ...editData, [e.target.name]: e.target.value });
   };
+
   const handleEditImageChange = (e) => {
     setEditImage(e.target.files[0]);
   };
@@ -46,30 +46,29 @@ const fileHandler = (e) => {
     data.append("category", formData.category);
     data.append("description", formData.description);
     data.append("image", formData.image);
+
     try {
-      const res = await axios.post(
-        "blog/create",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      console.log("res", res);
+      const res = await axios.post("/blog/create", data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      });
       toast.success(res.data.message);
-      (formData.title = ""),
-        (formData.category = ""),
-        (formData.description = ""),
-        (formData.image = null);
+      setFormData({
+        title: "",
+        category: "",
+        description: "",
+        image: null,
+      });
+      fetchBlogs();
     } catch (error) {
       toast.error(error.message);
     }
   };
 
   const fetchBlogs = async () => {
-    setLoading(true);  // Start loading
+    setLoading(true);
     try {
       const res = await axios.get("/blog/all", {
         headers: { Authorization: `Bearer ${token}` },
@@ -78,7 +77,7 @@ const fileHandler = (e) => {
     } catch (error) {
       console.log("error", error);
     }
-    setLoading(false); // Done loading
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -87,10 +86,9 @@ const fileHandler = (e) => {
 
   const removeBlog = async (blogId) => {
     try {
-      const res = await axios.delete(
-        `/blog/delete/${blogId}`,
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+      const res = await axios.delete(`/blog/delete/${blogId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       toast.success(res.data.message);
       setBlogs(blogs.filter((blog) => blog._id !== blogId));
     } catch (error) {
@@ -113,25 +111,20 @@ const fileHandler = (e) => {
     }
 
     try {
-      const res = await axios.put(
-        `/blog/update/${id}`,
-        data,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const res = await axios.put(`/blog/update/${id}`, data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      });
       toast.success(res.data.message);
       fetchBlogs();
       setEditingId(null);
     } catch (error) {
-      toast.error(error.response.data.message || "Failed to update");
+      toast.error(error.response?.data?.message || "Failed to update");
     }
   };
 
-  // Simple CSS spinner component
   const Spinner = () => (
     <div className="flex justify-center items-center py-20">
       <div className="w-12 h-12 border-4 border-orange-500 border-dashed rounded-full animate-spin"></div>
@@ -143,16 +136,16 @@ const fileHandler = (e) => {
       <div className="md:w-64 w-full bg-gray-800 p-6 text-white">
         <h2 className="text-lg font-bold mb-6">Dashboard</h2>
         <button
-          className={`block cursor-pointer w-full py-2 px-4 mb-2 bg-gray-700 rounded transition ${
-            activeTab === "post" ? "bg-orange-500" : "hover:bg-gray-500"
+          className={`block w-full cursor-pointer py-2 px-4 mb-2 rounded transition ${
+            activeTab === "post" ? "bg-orange-500" : "bg-gray-700 hover:bg-gray-600"
           }`}
           onClick={() => setActiveTab("post")}
         >
           Post a Blog
         </button>
         <button
-          className={`block cursor-pointer w-full py-2 px-4 bg-gray-700 rounded transition ${
-            activeTab === "list" ? "bg-orange-500" : "hover:bg-gray-500"
+          className={`block w-full py-2 px-4 cursor-pointer rounded transition ${
+            activeTab === "list" ? "bg-orange-500" : "bg-gray-700 hover:bg-gray-600"
           }`}
           onClick={() => setActiveTab("list")}
         >
@@ -162,7 +155,7 @@ const fileHandler = (e) => {
 
       <div className="flex-1 p-6 overflow-auto">
         {activeTab === "post" ? (
-          <div className="max-w-lg  mx-12 mt-6 bg-white shadow-md rounded-lg p-6">
+          <div className="max-w-lg mx-12 mt-6 bg-white shadow-md rounded-lg p-6">
             <h2 className="text-xl font-bold mb-4">Post a New Blog</h2>
             <form onSubmit={submitHandler} className="flex flex-col gap-4">
               <input
@@ -189,7 +182,7 @@ const fileHandler = (e) => {
                 className="border border-gray-300 rounded-md p-2 w-full"
               />
               <div>
-                <label className="block text-sm mb-1">Choose Image</label>
+                <label className="block cursor-pointer text-sm mb-1">Choose Image</label>
                 <input
                   onChange={fileHandler}
                   name="image"
@@ -206,7 +199,6 @@ const fileHandler = (e) => {
         ) : (
           <div>
             <h2 className="text-2xl font-semibold mt-4 mb-6">List of Blogs</h2>
-
             {loading ? (
               <Spinner />
             ) : (
@@ -214,18 +206,10 @@ const fileHandler = (e) => {
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead className="bg-gray-100 sticky top-0">
                     <tr>
-                      <th className="px-6 py-3 text-left text font-medium  uppercase tracking-wider">
-                        Title
-                      </th>
-                      <th className="px-6 py-3 text-left text font-bold uppercase tracking-wider w-1/3">
-                        Description
-                      </th>
-                      <th className="px-6 py-3 text-left text font-bold uppercase tracking-wider">
-                        Image
-                      </th>
-                      <th className="px-6 py-3 text-center text font-bold uppercase tracking-wider">
-                        Actions
-                      </th>
+                      <th className="px-6 py-3 text-left font-medium uppercase tracking-wider">Title</th>
+                      <th className="px-6 py-3 text-left font-bold uppercase tracking-wider w-1/3">Description</th>
+                      <th className="px-6 py-3 text-left font-bold uppercase tracking-wider">Image</th>
+                      <th className="px-6 py-3 text-center font-bold uppercase tracking-wider">Actions</th>
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
@@ -234,7 +218,6 @@ const fileHandler = (e) => {
                         key={blog._id}
                         className={index % 2 === 0 ? "bg-white" : "bg-gray-50"}
                       >
-                        {/* Title */}
                         <td className="px-6 py-4 whitespace-nowrap">
                           {editingId === blog._id ? (
                             <input
@@ -244,13 +227,10 @@ const fileHandler = (e) => {
                               className="border p-1 rounded w-full"
                             />
                           ) : (
-                            <div className="text-gray-900 font-medium">
-                              {blog.title}
-                            </div>
+                            <div className="text-gray-900 font-medium">{blog.title}</div>
                           )}
                         </td>
 
-                        {/* Description - 2 line clamp */}
                         <td className="px-6 py-4 max-w-xs">
                           {editingId === blog._id ? (
                             <textarea
@@ -266,7 +246,6 @@ const fileHandler = (e) => {
                           )}
                         </td>
 
-                        {/* Image */}
                         <td className="px-6 py-4 whitespace-nowrap">
                           {editingId === blog._id ? (
                             <input
@@ -278,27 +257,30 @@ const fileHandler = (e) => {
                             />
                           ) : (
                             <img
-                              src={`http://localhost:4000/images/${blog.image}`}
+                              src={`${BASE_URL}/images/${blog.image}`}
                               alt={blog.title}
                               className="h-12 w-12 rounded object-cover"
+                              onError={(e) => {
+                                e.target.onerror = null;
+                                e.target.src = "/fallback-blog.jpg";
+                              }}
                             />
                           )}
                         </td>
 
-                        {/* Actions */}
-                        <td className="px-6 py-4 whitespace-nowrap flex justify-center gap-3">
+                        <td className="px-6 py-4 whitespace-nowrap  flex justify-center gap-3">
                           {editingId === blog._id ? (
                             <>
                               <button
                                 onClick={() => handleSaveEdit(blog._id)}
-                                className="flex cursor-pointer items-center gap-1 text-green-600 hover:text-green-800"
+                                className="flex items-center cursor-pointer gap-1 text-green-600 hover:text-green-800"
                               >
                                 <Save size={18} />
                                 Save
                               </button>
                               <button
                                 onClick={() => setEditingId(null)}
-                                className="flex cursor-pointer items-center gap-1 text-gray-600 hover:text-gray-800"
+                                className="flex items-center cursor-pointer gap-1 text-gray-600 hover:text-gray-800"
                               >
                                 <X size={18} />
                                 Cancel
@@ -308,7 +290,7 @@ const fileHandler = (e) => {
                             <>
                               <button
                                 onClick={() => handleEditClick(blog)}
-                                className="flex cursor-pointer items-center gap-1 text-blue-600 hover:text-blue-800"
+                                className="flex items-center cursor-pointer gap-1 text-blue-600 hover:text-blue-800"
                               >
                                 <Edit3 size={20} />
                                 Edit

@@ -51,7 +51,7 @@ const Signup = () => {
       setLoading(true);
 
       const res = await fetch(
-        "https://shiera-backend-14.onrender.com/user/register",
+        "https://shiera-backend-15.onrender.com/user/register",
         {
           method: "POST",
           body: data,
