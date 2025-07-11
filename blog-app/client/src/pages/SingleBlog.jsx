@@ -21,7 +21,7 @@ const SingleBlog = () => {
     <div className="rounded-md border-3 shadow-md border-gray-200 p-5 max-w-3xl flex flex-col gap-3 items-center justify-center my-4 mx-auto py-8">
       <img
         className="transition-transform duration-300 w-100 cursor-pointer rounded hover:scale-105"
-        src={`https://shiera-backend-14.onrender.com/images/${blog.image}`}
+        src={`http://localhost:4000/images/${blog.image}`}
         alt=""
       />
       <p className="text-2cl font-bold">{blog.title}</p>

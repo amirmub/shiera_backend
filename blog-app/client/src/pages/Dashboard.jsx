@@ -26,9 +26,10 @@ const Dashboard = () => {
   const onChangeHandler = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  const fileHandler = (e) => {
-    setFormData({ ...formData, image: e.target.files[0] });
-  };
+const fileHandler = (e) => {
+  const file = e.target.files[0];
+  setFormData((prev) => ({ ...prev, image: file }));
+};
 
   const handleEditInputChange = (e) => {
     setEditData({ ...editData, [e.target.name]: e.target.value });
@@ -39,22 +40,29 @@ const Dashboard = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+
     const data = new FormData();
     data.append("title", formData.title);
     data.append("category", formData.category);
     data.append("description", formData.description);
     data.append("image", formData.image);
-
     try {
-      const res = await axios.post("/blog/create", data, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await axios.post(
+        "blog/create",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log("res", res);
       toast.success(res.data.message);
-      setFormData({ title: "", category: "", description: "", image: null });
-      fetchBlogs();
+      (formData.title = ""),
+        (formData.category = ""),
+        (formData.description = ""),
+        (formData.image = null);
     } catch (error) {
       toast.error(error.message);
     }
@@ -184,6 +192,7 @@ const Dashboard = () => {
                 <label className="block text-sm mb-1">Choose Image</label>
                 <input
                   onChange={fileHandler}
+                  name="image"
                   type="file"
                   accept="image/*"
                   className="border cursor-pointer border-gray-300 rounded-md p-2 w-full"
@@ -269,7 +278,7 @@ const Dashboard = () => {
                             />
                           ) : (
                             <img
-                              src={`https://shiera-backend-14.onrender.com/images/${blog.image}`}
+                              src={`http://localhost:4000/images/${blog.image}`}
                               alt={blog.title}
                               className="h-12 w-12 rounded object-cover"
                             />

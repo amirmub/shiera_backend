@@ -11,26 +11,35 @@ export const allBlogs = async (req, res) => {
 };
 export const createBlog = async (req, res) => {
   try {
-    const { title, category, content, author_name, author_image } = req.body;
+    // console.log("BODY:", req.body);
+    // console.log("FILE:", req.file);
 
-    if (!title || !category || !content || !author_name || !req.file) {
-      return res.status(400).json({ message: "Missing fields", success: false });
+    if (!req.file) {
+      return res.status(400).json({ message: "No image uploaded" });
     }
 
-    const imageUrl = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`;
+    const { title, category, description } = req.body;
+
     const blog = await Blog.create({
       title,
       category,
-      content,
-      author_name,
-      author_image,
-      image: imageUrl,
-      date: new Date(),
+      description,
+      image: req.file.filename,
+      author: {
+        id: req.user._id,
+        name: req.user.name,
+        image: req.user.image,
+      },
     });
 
-    res.status(201).json({ message: "Blog created", success: true, blog });
+    return res
+      .status(201)
+      .json({ message: "blog created", success: true, blog });
   } catch (error) {
-    res.status(500).json({ message: "Internal server error", error: error.message });
+    console.error("Create Blog Error:", error);
+    return res
+      .status(500)
+      .json({ message: "Internal server error", error: error.message });
   }
 };
 
