@@ -27,9 +27,9 @@ const SingleBlog = () => {
     : `${BASE_URL}/images/${blog.author.image}`;
 
   return (
-    <div className="rounded-md border-3 shadow-md border-gray-200 p-5 max-w-3xl flex flex-col gap-3 items-center justify-center my-4 mx-auto py-8">
+    <div className="rounded-md border-3 shadow-md border-gray-200 p-5 max-w-3xl flex flex-col gap-3 items-center  justify-center mt-5 mb-14 mx-auto py-8">
       <img
-        className="transition-transform duration-300 w-120 h-70 object-cover cursor-pointer rounded hover:scale-105"
+        className="transition-transform duration-300 w-150 h-75 object-cover cursor-pointer rounded hover:scale-105"
         src={finalImage}
         alt={blog.title}
         onError={(e) => (e.target.src = "/fallback-blog.jpg")}
